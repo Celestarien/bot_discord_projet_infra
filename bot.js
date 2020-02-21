@@ -156,7 +156,7 @@ bot.on("ready", () => {
 	bot.user.setStatus("online", "");
 	let status = [
 		bot.guilds.size + " serveurs",
-		bot.PREFIX,
+		bot.PREFIX + "help",
 		bot.users.size + " utilisateurs",
 	]
 	setInterval(function () {
