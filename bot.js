@@ -143,7 +143,9 @@ var checkCommand = function (msg, isMention) {
 		} catch (err) {
 			msg.channel.send("❌ Commande inconnue ou alors il manque un élément !")
 
-			fs.appendFile('logs.log', '[' + Date("YYYY-MM-DD hh:mm:ss") + '] ' + msg.author.username + ' ' + msg.author + ' ' + msg + ' ' + 'Unknown Command \n')
+			fs.appendFile('logs.log', '[' + Date("YYYY-MM-DD hh:mm:ss") + '] ' + msg.author.username + ' ' + msg.author + ' ' + msg + ' ' + 'Unknown Command \n', function (err) {
+				if (err) throw err;
+			})
 			//DATE USER ID ACTION Unknow_Command
 		}
 
