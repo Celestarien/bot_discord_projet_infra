@@ -1,0 +1,34 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Celestarien",
+      "name": "Celestarien",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/43401854?v=4",
+      "profile": "https://github.com/Celestarien",
+      "contributions": [
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "Leoesb33",
+      "name": "Leoesb33",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/57182111?v=4",
+      "profile": "https://github.com/Leoesb33",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "bot_discord_projet_infra",
+  "projectOwner": "Celestarien",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}

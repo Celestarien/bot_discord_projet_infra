@@ -1,0 +1,22 @@
+{
+  "name": "bot_discord",
+  "version": "1.0.0",
+  "description": "Projet Infra SI",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Celestarien/bot_discord_projet_infra.git"
+  },
+  "keywords": [
+    "bot",
+    "discord"
+  ],
+  "author": "Celestarien",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
