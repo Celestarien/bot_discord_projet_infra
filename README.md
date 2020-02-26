@@ -41,8 +41,8 @@ Les trois autres lignes en bas aident à générer le texte d'aide. Si vous déf
 Enfin, pour exécuter le bot, un simple `node bot.js` fera généralement l'affaire. Cependant, si vous souhaitez continuer à faire fonctionner votre bot, je vous suggère d'utiliser [forever](https://github.com/foreverjs/forever). Installez-le avec `npm install forever -g`, puis exécutez simplement` forever start bot.js` dans le même dossier que le bot.
 
 ## Server Git sous Centos7 (en root@localhost)
-Pour la création du serveur git sous Centos7 (sans interface graphique)il faut commencer par installer `nano` afin de pouvoir modifier certain fichier : `yum -y install nano` .      
-Un fois cela fait nous pouvons dès à présent installer git et par la même occasion le shell Git :      
+Pour la création du serveur git sous Centos7 (sans interface graphique) il faut commencer par installé `nano` afin de pouvoir modifier certain fichier : `yum -y install nano` .      
+Un fois celà fait nous pouvons dès à présent installer git et par la même occasion le shell Git :      
 `yum install -y git `        
 `echo "/bin/git-shell" >> /etc/shells`     
 Par la suite créez un nouveau groupe pour les utilisateurs Git et spécifiez l'authentification sans mot de passe pour ce groupe :  
@@ -90,7 +90,7 @@ usersPubKey = 'met_ici_ta_clé_ssh_publique'
 echo $ usersPubKey > / home / git_user1 / .ssh / authorized_keys
 ```
 (c'est ici qu'on a bloqué, impossible de collé la clé SSH dans la VM sans que ça la déforme).  
- Mais l'idée c'était de créer un nouveau dossier côté client, puis initialiser git et le pousser sur le serveur de référentiel git (coté client) : 
+ Mais l'idée c'était de créer un nouveau dossier côté client, puis initialiser git et le pousser sur le serveur de référentiel git : 
  ```
 mkdir test1 && cd test1
 git init .
