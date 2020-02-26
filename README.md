@@ -40,6 +40,78 @@ Les trois autres lignes en bas aident à générer le texte d'aide. Si vous déf
 
 Enfin, pour exécuter le bot, un simple `node bot.js` fera généralement l'affaire. Cependant, si vous souhaitez continuer à faire fonctionner votre bot, je vous suggère d'utiliser [forever](https://github.com/foreverjs/forever). Installez-le avec `npm install forever -g`, puis exécutez simplement` forever start bot.js` dans le même dossier que le bot.
 
+## Server Git sous Centos7 (en root@localhost)
+Pour la création du serveur git sous Centos7 (sans interface graphique)il faut commencer par installer `nano` afin de pouvoir modifier certain fichier : `yum -y install nano` .      
+Un fois cela fait nous pouvons dès à présent installer git et par la même occasion le shell Git :      
+`yum install -y git `        
+`echo "/bin/git-shell" >> /etc/shells`     
+Par la suite créez un nouveau groupe pour les utilisateurs Git et spécifiez l'authentification sans mot de passe pour ce groupe :  
+`groupadd git_users`    
+On va devoir donner l'accès au git à nos futurs users et pour celà il faut modifier le fichier de conf se situant ici `/etc/ssh/sshd_config` grace à `nano` installer au début et y rajouter ces lignes à la fin du fichier :    
+`Match Group git_users`   
+`PasswordAuthentication no`   
+Redémarrer le service ssh : `service sshd restart`    
+Créez un nouveau dossier pour contenir les futurs référentiels distants git: `mkdir / référentiels`   
+
+On va pouvoir passer à la création des users git et d'un fichier contenant leurs clés publiques SSH qu'on le devra générer plus tard...  
+```
+useradd -g git_users git_user1
+mkdir / home / git_user1 / .ssh
+chmod 700 / home / git_user1 / .ssh
+echo "" > / home / git_user1 / .ssh / authorized_keys
+chmod 600 / home / git_user1 / .ssh / authorized_keys
+chown -R git_user1 : git_users / home / git_user1 / .ssh
+usermod --shell / bin / git-shell git_user1
+```   
+
+Pour le création d'un référentiel distant et le lancement du git tapez ces commandes :   
+```
+mkdir / repositories / git_repo1.git
+cd / repositories / git_repo1.git
+git init --bare --shared = group
+sudo chgrp -R git_users.
+```     
+
+On peut maintenant fournir l'accès d'un `git_user1` au référentiel `git_repo1.git` créer juste avant :   
+```
+unlink / home / git_user1 / git_repo1.git
+sudo ln -s / repositories / git_repo1.git / home / git_user1 /
+chown -R git_user1: git_users / home / git_user1
+```
+
+Maintenant repasser sur votre coté client :       
+- Pour Windows installer Git avec Git bash puis entrez dans le Git bash `ssh-keygen` pour générer une clé SSH afin de faire la connection avec le serveur. Ensuite tapez `~/.ssh/id_rsa.pub` pour voir votre clé publique et copié là !       
+
+- Pour Linux faites `sudo apt install git` et c'est tout ! répétez les même commandes pour générer la clé SSH et la copier que sur Windows.   
+
+Retourner sur Centos7 et il va falloir ajouter cette clé SSH à notre user1 créé précédement :  
+```
+usersPubKey = 'met_ici_ta_clé_ssh_publique'
+echo $ usersPubKey > / home / git_user1 / .ssh / authorized_keys
+```
+(c'est ici qu'on a bloqué, impossible de collé la clé SSH dans la VM sans que ça la déforme).  
+ Mais l'idée c'était de créer un nouveau dossier côté client, puis initialiser git et le pousser sur le serveur de référentiel git (coté client) : 
+ ```
+mkdir test1 && cd test1
+git init .
+git config --global user.email "tonmaile@mail.com"
+git config --global user.name "Votre nom"
+echo test_content1 > test1.txt
+echo test_content2 > test2.txt
+git add .
+git commit -m "initial commit"
+git remote add origin git_user1 @ 192.168.70.136:git_repo1.git  //récupère l'ip sur centos avec : ip address
+git push origin master
+ ```
+ Et pour tester le tout créer un dossier random et cloner le référentiel distant qu'on a créer dans ce dossier random :   
+ ```
+ mkdir random
+cd random
+git clone git_user1 @ 192.168.70.136:git_repo1.git.
+ls  //le contenu devrait apparaitre
+ ```
+
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
